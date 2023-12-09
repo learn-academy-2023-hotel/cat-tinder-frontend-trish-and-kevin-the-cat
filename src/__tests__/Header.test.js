@@ -13,8 +13,8 @@ describe("<Header />", () => {
     // debugging
     // screen.debug() // gives the html output of the current DOM
     // screen.logTestingPlaygroundURL() // provides an url in the test suite that can be copied and pasted in the browser, displays the html output and applicable queries
-    // const homeElement = screen.getByText(/home/i)
-    // expect(homeElement).toBeInTheDocument()
+    const homeElement = screen.getByText(/home/i)
+    expect(homeElement).toBeInTheDocument()
   })
 
   it('renders a index link', () => {
@@ -29,7 +29,7 @@ describe("<Header />", () => {
     expect(indexElement).toBeInTheDocument()
   })
 
-  it('renders a home link', () => {
+  it('renders three navigation links', () => {
     render(
       <BrowserRouter>
         <Header />
@@ -40,7 +40,20 @@ describe("<Header />", () => {
     const homeLink = screen.getAllByRole('link')
     // screen.debug(homeLink)
     expect(homeLink.length).toEqual(3)
-    // expect(homeLink).toBeInTheDocument()
+  })
+
+  it('renders a home link', () => {
+    render(
+      <BrowserRouter>
+        <Header />
+      </BrowserRouter>
+    )
+    // debugging
+    // screen.logTestingPlaygroundURL() 
+    const homeLink = screen.getByRole('link', { 
+      name: /home/i
+    })
+    expect(homeLink).toBeInTheDocument()
   })
 
 })

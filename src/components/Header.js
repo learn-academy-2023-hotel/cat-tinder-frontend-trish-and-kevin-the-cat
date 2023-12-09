@@ -6,11 +6,9 @@ const Header = () => {
     <header>
       <Nav
         justified
-        pills
       >
         <NavItem>
           <NavLink
-            active
             to="/"
           >
             Home
