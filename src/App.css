@@ -13,3 +13,18 @@
   display: flex;
   justify-content: center;
 }
+* {
+  text-align: center;
+}
+
+.center {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+#home-image {
+  padding-top: 20vw;
+}
