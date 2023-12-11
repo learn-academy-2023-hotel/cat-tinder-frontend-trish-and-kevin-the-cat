@@ -1,6 +1,3 @@
-import { useState } from "react"
-import { Route, Routes } from "react-router-dom"
-
 import Footer from "./components/Footer"
 import Header from "./components/Header"
 import mockCats from "./mockCats"
@@ -10,13 +7,13 @@ import CatNew from "./pages/CatNew"
 import CatShow from "./pages/CatShow"
 import Home from "./pages/Home"
 import NotFound from "./pages/NotFound"
+import { useState } from "react"
+import { Route, Routes } from "react-router-dom"
 
 import "./App.css"
 
 const App = () => {
   const [cats, setCats] = useState(mockCats)
-
-  console.log(cats)
 
   return (
     <>
@@ -26,7 +23,7 @@ const App = () => {
         <Route path="/catedit" element={<CatEdit />} />
         <Route path="/catindex" element={<CatIndex cats={cats} />} />
         <Route path="/catnew" element={<CatNew />} />
-        <Route path="/catshow" element={<CatShow />} />
+        <Route path="/catshow/:id" element={<CatShow cats={cats} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
