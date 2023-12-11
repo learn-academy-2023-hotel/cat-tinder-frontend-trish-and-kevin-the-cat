@@ -11,5 +11,11 @@
 }
 
 #home-image {
-  padding-top: 20vw;
+  padding-top: 10vw;
+}
+
+.cards-index {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
