@@ -15,6 +15,10 @@ import "./App.css"
 const App = () => {
   const [cats, setCats] = useState(mockCats)
 
+  const createCat = (createdCat) => {
+    console.log("created cat:", createdCat)
+  }
+
   return (
     <>
       <Header />
@@ -22,7 +26,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/catedit" element={<CatEdit />} />
         <Route path="/catindex" element={<CatIndex cats={cats} />} />
-        <Route path="/catnew" element={<CatNew />} />
+        <Route path="/catnew" element={<CatNew createCat={createCat} />} />
         <Route path="/catshow/:id" element={<CatShow cats={cats} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
