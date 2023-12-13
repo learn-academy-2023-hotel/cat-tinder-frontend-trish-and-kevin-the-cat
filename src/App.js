@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Route, Routes } from "react-router-dom"
 
 import Footer from "./components/Footer"
@@ -14,14 +14,50 @@ import NotFound from "./pages/NotFound"
 import "./App.css"
 
 const App = () => {
-  const [cats, setCats] = useState(mockCats)
+  const [cats, setCats] = useState([])
+
+  useEffect(() => {
+    readCats()
+  }, [])
+
+  const readCats = () => {
+    fetch("http://localhost:3000/cats") // this is the request
+      .then((response) => response.json()) // converts JSON to data we can use in JavaScript
+      .then((payload) => {
+        setCats(payload)
+      })
+      .catch((error) => console.log("Cat read errors: ", error))
+  }
 
   const createCat = (createdCat) => {
-    console.log("created cat:", createdCat)
+    fetch("http://localhost:3000/cats", {
+      // body will have new cat data
+      body: JSON.stringify(createdCat),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then(() => readCats())
+      .catch((error) => console.log("Cat create errors:", error))
   }
-  const updateCat = (cat, id) => {
-    console.log("update: ", cat)
+
+  const updateCat = (selectedCat, id) => {
+    fetch(`http://localhost:3000/cats/${id}`, {
+      body: JSON.stringify(selectedCat),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "PATCH",
+    })
+      .then((response) => response.json())
+      .then(() => readCats())
+      .catch((error) => console.log("Update cat errors: ", error))
   }
+
+  const deleteCat = (id) => {}
+
   return (
     <>
       <Header />
