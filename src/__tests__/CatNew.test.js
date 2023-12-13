@@ -13,7 +13,6 @@ describe("<CatNew />", () => {
   }
   it("renders a new cat form", () => {
     renderNew()
-    screen.logTestingPlaygroundURL()
 
     const nameInput = screen.getByRole("textbox", {
       name: /name/i,
