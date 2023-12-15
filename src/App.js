@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom"
 
 import Footer from "./components/Footer"
 import Header from "./components/Header"
-import mockCats from "./mockCats"
 import CatEdit from "./pages/CatEdit"
 import CatIndex from "./pages/CatIndex"
 import CatNew from "./pages/CatNew"
@@ -20,8 +19,9 @@ const App = () => {
     readCats()
   }, [])
 
+  const url = `https://cat-tinder-backend.onrender.com`
   const readCats = () => {
-    fetch("http://localhost:3000/cats") // this is the request
+    fetch(`${url}/cats`) // this is the request
       .then((response) => response.json()) // converts JSON to data we can use in JavaScript
       .then((payload) => {
         setCats(payload)
@@ -30,7 +30,7 @@ const App = () => {
   }
 
   const createCat = (createdCat) => {
-    fetch("http://localhost:3000/cats", {
+    fetch(`${url}/cats`, {
       // body will have new cat data
       body: JSON.stringify(createdCat),
       headers: {
@@ -44,7 +44,7 @@ const App = () => {
   }
 
   const updateCat = (selectedCat, id) => {
-    fetch(`http://localhost:3000/cats/${id}`, {
+    fetch(`${url}cats/${id}`, {
       body: JSON.stringify(selectedCat),
       headers: {
         "Content-Type": "application/json",
@@ -69,7 +69,10 @@ const App = () => {
         />
         <Route path="/catindex" element={<CatIndex cats={cats} />} />
         <Route path="/catnew" element={<CatNew createCat={createCat} />} />
-        <Route path="/catshow/:id" element={<CatShow cats={cats} />} />
+        <Route
+          path="/catshow/:id"
+          element={<CatShow cats={cats} deleteCat={deleteCat} />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

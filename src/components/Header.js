@@ -1,9 +1,10 @@
 import React from "react"
-import { Nav, NavItem } from "reactstrap"
+import { Nav, NavItem, Navbar, NavbarBrand } from "reactstrap"
 import { NavLink } from "react-router-dom"
 const Header = () => {
   return (
-    <header>
+    <Navbar className="my-2" color="secondary" dark>
+      <NavbarBrand>Cat Tinder</NavbarBrand>
       <Nav justified>
         <NavItem>
           <NavLink to="/">Home</NavLink>
@@ -15,7 +16,7 @@ const Header = () => {
           <NavLink to="/catnew">Create a Purrfile</NavLink>
         </NavItem>
       </Nav>
-    </header>
+    </Navbar>
   )
 }
 

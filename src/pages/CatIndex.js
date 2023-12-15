@@ -1,5 +1,5 @@
 import React from "react"
-import { NavLink } from 'react-router-dom'
+import { NavLink } from "react-router-dom"
 import { Card, CardBody, CardSubtitle, CardTitle } from "reactstrap"
 
 const CatIndex = ({ cats }) => {
@@ -16,7 +16,7 @@ const CatIndex = ({ cats }) => {
           >
             <img alt="cat profile" src={cat.image} />
             <CardBody>
-              <CardTitle tag="h5">{cat.name}</CardTitle>
+              <CardTitle tag="h4">{cat.name}</CardTitle>
               <CardSubtitle className="mb-2 text-muted" tag="h6">
                 {cat.age}
               </CardSubtitle>
