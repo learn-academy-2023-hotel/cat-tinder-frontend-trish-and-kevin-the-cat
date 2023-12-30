@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom"
 
 import Footer from "./components/Footer"
 import Header from "./components/Header"
+// import mockCats from "./mockCats"
 import CatEdit from "./pages/CatEdit"
 import CatIndex from "./pages/CatIndex"
 import CatNew from "./pages/CatNew"
@@ -19,7 +20,8 @@ const App = () => {
     readCats()
   }, [])
 
-  const url = `https://cat-tinder-backend.onrender.com`
+  // const url = `https://cat-tinder-backend.onrender.com`
+  const url = "http://localhost:3000/"
   const readCats = () => {
     fetch(`${url}/cats`) // this is the request
       .then((response) => response.json()) // converts JSON to data we can use in JavaScript
@@ -56,7 +58,17 @@ const App = () => {
       .catch((error) => console.log("Update cat errors: ", error))
   }
 
-  const deleteCat = (id) => {}
+  const deleteCat = (id) => {
+    fetch(`${url}cats/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then(() => readCats())
+      .catch((errors) => console.log("delete errors:", errors))
+  }
 
   return (
     <>
