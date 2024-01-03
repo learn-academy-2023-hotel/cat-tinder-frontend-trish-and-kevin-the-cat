@@ -23,7 +23,7 @@ const App = () => {
   // const url = `https://cat-tinder-backend.onrender.com`
   const url = "http://localhost:3000/"
   const readCats = () => {
-    fetch(`${url}/cats`) // this is the request
+    fetch(`${url}cats`) // this is the request
       .then((response) => response.json()) // converts JSON to data we can use in JavaScript
       .then((payload) => {
         setCats(payload)
@@ -32,7 +32,7 @@ const App = () => {
   }
 
   const createCat = (createdCat) => {
-    fetch(`${url}/cats`, {
+    fetch(`${url}cats`, {
       // body will have new cat data
       body: JSON.stringify(createdCat),
       headers: {
