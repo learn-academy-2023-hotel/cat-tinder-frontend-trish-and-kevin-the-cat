@@ -272,11 +272,11 @@ Now let's work on testing. As we have in the past, we have to make sure that any
 ```javascript
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import MyCats from "./MyCats"
+import MyCatIndex from "./MyCatIndex"
 import { BrowserRouter, useParams } from "react-router-dom"
-import mockCats from "../mockCats"
+// import mockCats from "../mockCats"
 
-describe("<MyCats />", () => {
+describe("<MyCatIndex />", () => {
   beforeEach(() => {
     const currentUser = {
       email: "test@test.com",
@@ -294,7 +294,7 @@ describe("<MyCats />", () => {
     ]
     render(
       <BrowserRouter>
-        <MyCats currentUser={currentUser} myCats={userCats} />
+        <MyCatIndex currentUser={currentUser} myCats={userCats} />
       </BrowserRouter>
     )
   })
