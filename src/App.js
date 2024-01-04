@@ -12,17 +12,23 @@ import CatShow from "./pages/CatShow"
 import Home from "./pages/Home"
 import NotFound from "./pages/NotFound"
 import mockUsers from "./mockUsers"
+import Signup from "./pages/Signup"
 
 import "./App.css"
 
 const App = () => {
-  const [cats, setCats] = useState(mockCats)
-  const [currentUser, setCurrentUser] = useState(mockUsers[0])
+  const [cats, setCats] = useState([])
+  const [currentUser, setCurrentUser] = useState(null)
 
   // for protected page we will need currentUser.id === cat.user_id
   useEffect(() => {
+    const loggedInUser = localStorage.getItem("user")
+    if (loggedInUser) {
+      setCurrentUser(JSON.parse(loggedInUser))
+    }
     readCats()
   }, [])
+  //  CRUD fxnality fetch calls
 
   // const url = `https://cat-tinder-backend.onrender.com`
   const url = "http://localhost:3000/"
@@ -74,11 +80,55 @@ const App = () => {
       .catch((errors) => console.log("delete errors:", errors))
   }
 
+  // authentication/auth fetch calls
+  // localSTorage - saves k-v pairs in browser.  Must be strings - use JSON.stringify(yourDataHere)
+
+  const signup = (userInfo) => {
+    fetch(`${url}signup`, {
+      body: JSON.stringify(userInfo),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      method: "POST",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(response.statusText)
+        }
+        // store token in browser using localStorage
+        localStorage.setItem("token", response.headers.get("Authorization"))
+        return response.json()
+      })
+      .then((payload) => {
+        localStorage.setItem("user", JSON.stringify(payload))
+        setCurrentUser(payload)
+      })
+      .catch((error) => console.log("signup errors: ", error))
+  }
+
+  const logout = () => {
+    fetch(`${url}logout`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"), //retrieve token
+      },
+      method: "DELETE",
+    })
+      .then((payload) => {
+        localStorage.removeItem("token")
+        localStorage.removeItem("user")
+        setCurrentUser(null)
+      })
+      .catch((error) => console.log("log out errors: ", error))
+  }
+
   return (
     <>
-      <Header />
+      <Header currentUser={currentUser} logout={logout} />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/signup" element={<Signup signup={signup} />} />
         <Route path="/catindex" element={<CatIndex cats={cats} />} />
         <Route
           path="/catshow/:id"
